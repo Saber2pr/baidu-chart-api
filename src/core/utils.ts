@@ -4,8 +4,13 @@
  * @Last Modified by: saber2pr
  * @Last Modified time: 2019-06-21 21:00:24
  */
-export const zip = (a: any[], b: any[]) =>
-  a.reduce((receiver, x, i) => ({ ...receiver, [x]: b[i] }), {})
+export const zip = <A extends PropertyKey, B extends PropertyKey>(
+  a: A[],
+  b: B[]
+) =>
+  a.length > b.length
+    ? zip(b, a)
+    : a.reduce((receiver, x, i) => ({ ...receiver, [x]: b[i] }), {})
 
 export const createPtbkMap = (ptbk: string) => {
   const m = ptbk.length / 2
