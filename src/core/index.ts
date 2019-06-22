@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-21 21:07:23
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-21 21:33:02
+ * @Last Modified time: 2019-06-22 09:58:46
  */
 import axios, { AxiosInstance } from 'axios'
 import { Baidu } from './url'
@@ -94,7 +94,7 @@ export class BaiduChart {
       data: {
         data: {
           uniqid,
-          all: { startDate, endDate, data }
+          all: { word, startDate, endDate, data }
         }
       }
     } = await this.request.get<Thumbnail>(Baidu.thumbnail, {
@@ -109,6 +109,7 @@ export class BaiduChart {
     } = await this.getPTBK(uniqid)
 
     return {
+      word,
       startDate,
       endDate,
       data: transformDataFromPtbk(ptbk, data)
