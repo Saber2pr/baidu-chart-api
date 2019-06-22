@@ -1,5 +1,7 @@
 # @saber2pr/baidu-chart-api
 
+[![npm](https://img.shields.io/npm/v/@saber2pr/baidu-chart-api.svg?color=%23f253d4)](https://www.npmjs.com/package/@saber2pr/baidu-chart-api)
+
 > 百度指数数据解析
 
 > 送给 b 站的小伙伴 qwq
@@ -10,11 +12,21 @@
 
 2. 打开 cmd(或终端)，执行以下命令安装 app
 
+windows 下执行
+
 ```bash
 npm install @saber2pr/baidu-chart-api -g
 ```
 
-3. 命令行执行
+mac 或 linux 下执行(加 sudo)
+
+```bash
+sudo npm install @saber2pr/baidu-chart-api -g
+```
+
+### 命令安装好 app 后
+
+命令行执行
 
 ```bash
 baiduChart
@@ -24,7 +36,13 @@ baiduChart
 
 # API
 
+```bash
+npm i @saber2pr/baidu-chart-api
+```
+
 ```ts
+import { BaiduChart } from '@saber2pr/baidu-chart-api'
+
 const cookie = '你的百度帐号cookie'
 
 new BaiduChart(cookie).search('关键字')
