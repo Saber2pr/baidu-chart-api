@@ -3,8 +3,8 @@
 /*
  * @Author: saber2pr
  * @Date: 2019-06-22 10:46:31
- * @Last Modified by:   saber2pr
- * @Last Modified time: 2019-06-22 10:46:31
+ * @Last Modified by: saber2pr
+ * @Last Modified time: 2019-06-22 13:58:22
  */
 import { Terminal } from '@saber2pr/node'
 import { BaiduChart } from './core'
@@ -53,7 +53,7 @@ async function App() {
   } catch (error) {
     Terminal.error('搜索失败！可能是cookie不正确或失效！\n')
     Terminal.tips(
-      '提示：1. 重新赋值一次cookie(以BAIDUID开头) 2.重新登录百度帐号刷新cookie后，再复制一次！\n'
+      '提示：1. 重新复制一次cookie(以BAIDUID开头，注意全选) 2.重新登录百度帐号刷新cookie后，再复制一次！\n'
     )
     console.log(error)
   }
