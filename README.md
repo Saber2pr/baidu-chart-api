@@ -62,6 +62,8 @@ new BaiduChart(cookie).search('关键字')
 
 ## 免责声明
 
+本项目只为学习所用，请勿用于商业用途。
+
 使用本软件前，请先阅读
 
 [使用百度指数前必读](http://index.baidu.com/Helper/?tpl=help&word=#duty) |
