@@ -60,6 +60,15 @@ new BaiduChart(cookie).search('关键字')
 
 > 其实 cookie 是可以服务端模拟登录拿到的，但是由于百度的身份认证加密过于复杂，up 我只能手动复制 cookie 了 T_T
 
+## 免责声明
+
+使用本软件前，请先阅读
+
+[使用百度指数前必读](http://index.baidu.com/Helper/?tpl=help&word=#duty) |
+[百度指数版权声明](http://index.baidu.com/Helper/?tpl=help&word=#copyright)
+
+如未遵守以上条款造成法律责任，本人概不负责！>\_<
+
 ---
 
 ## start
