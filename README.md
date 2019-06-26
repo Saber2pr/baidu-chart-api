@@ -48,17 +48,15 @@ const cookie = '你的百度帐号cookie'
 new BaiduChart(cookie).search('关键字')
 ```
 
-- cookie 需要抓包获得。([以`BAIDUID`开头的值就可以了, 示例>>](https://github.com/Saber2pr/baidu-chart-api/blob/master/src/test/test.ts#L10))
+- cookie 需要抓包获得。([包含以`BAIDUID`(也可能是 BIDUPSID)开头的值就可以了, 示例>>](https://github.com/Saber2pr/baidu-chart-api/blob/master/src/test/test.ts#L10))
 
 - 如果使用命令行工具，cookie 会缓存在命令执行的目录下，不需要再次输入！
 
 - 自动生成 excel csv。(0.0.3 版本及以上支持， 版本号查询请执行 `baiduChart -v`)
 
-> 以下解释为什么我需要手动复制 cookie
+## Bug
 
-> document.cookie 拿到的值不行！虽然大部分 cookie 都是 httponly=false 的，但是也有个别有安全策略。所以不如直接抓包来的快。
-
-> 其实 cookie 是可以服务端模拟登录拿到的，但是由于百度的身份认证加密过于复杂，up 我只能手动复制 cookie 了 T_T
+0.0.3 及以下版本在 windows 下会报错，最新版已解决。
 
 ## 免责声明
 
