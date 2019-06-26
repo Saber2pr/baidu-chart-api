@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-21 21:07:23
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-22 16:07:28
+ * @Last Modified time: 2019-06-26 13:49:19
  */
 import axios, { AxiosInstance } from 'axios'
 import { Baidu } from './url'
@@ -41,6 +41,27 @@ interface Thumbnail {
     uniqid: string
   }
   message: string
+}
+
+interface Index {
+  status: number
+  data: {
+    userIndexes: Array<{
+      word: string
+      all: { startDate: string; endDate: string; data: string }
+      pc: { startDate: string; endDate: string; data: string }
+      wise: { startDate: string; endDate: string; data: string }
+      type: string
+    }>
+    generalRatio: Array<{
+      word: string
+      all: { avg: number; yoy: number; qoq: number }
+      pc: { avg: number; yoy: number; qoq: string }
+      wise: { avg: number; yoy: string; qoq: number }
+    }>
+    uniqid: string
+  }
+  message: number
 }
 
 export class BaiduChart {
@@ -90,18 +111,24 @@ export class BaiduChart {
    * @returns
    * @memberof BaiduChart
    */
-  public async search(keyword: string): Promise<SearchResult> {
+  public async search(keyword: string, days = 365): Promise<SearchResult> {
     const {
       data: {
         data: {
           uniqid,
-          all: { word, startDate, endDate, data }
+          userIndexes: [
+            {
+              word,
+              all: { startDate, endDate, data }
+            }
+          ]
         }
       }
-    } = await this.request.get<Thumbnail>(Baidu.thumbnail, {
+    } = await this.request.get<Index>(Baidu.Index, {
       params: {
         area: 0,
-        word: keyword
+        word: keyword,
+        days
       }
     })
 
