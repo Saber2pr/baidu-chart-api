@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-21 20:56:35
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-22 16:05:53
+ * @Last Modified time: 2019-06-26 14:57:56
  */
 import { zip } from '@saber2pr/fp/lib/list'
 import { zips } from '@saber2pr/fp'
@@ -30,7 +30,7 @@ export function* timeRangeIt(start: string, end: string, step: number) {
   const endTime = new Date(end)
   while (current < endTime) {
     current.setDate(current.getDate() + step)
-    yield RegTime.exec(new Date(current).toJSON())[0]
+    yield RegTime.exec(new Date(current).toJSON())[0].replace(/-/g, '/')
   }
 }
 
@@ -40,9 +40,9 @@ export function timeRange(start: string, end: string, step: number) {
 
 export const parseData = (data: string) => data.split(',')
 
-export const searchResultsToCsv = (result: SearchResult[]) => {
+export const searchResultsToCsv = (result: SearchResult[], delta = 7) => {
   const { startDate, endDate } = result[0]
-  const ts = timeRange(startDate, endDate, 7)
+  const ts = timeRange(startDate, endDate, delta)
   const dss = result.map(res => parseData(res.data))
 
   const head = ['时间', ...result.map(res => res.word)].join(',')
