@@ -2,66 +2,66 @@
  * @Author: saber2pr
  * @Date: 2019-06-21 21:07:23
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-26 13:49:19
+ * @Last Modified time: 2019-07-03 14:41:35
  */
-import axios, { AxiosInstance } from 'axios'
-import { Baidu } from './url'
-import { transformDataFromPtbk } from './parser'
-import { SearchResult } from './result'
+import axios, { AxiosInstance } from "axios";
+import { Baidu } from "./url";
+import { transformDataFromPtbk } from "./parser";
+import { SearchResult } from "./result";
 
 interface PTBK_Result {
-  status: number
-  data: string
+  status: number;
+  data: string;
 }
 
 interface Thumbnail {
-  status: number
+  status: number;
   data: {
     pc: {
-      word: string
-      area: number
-      startDate: string
-      endDate: string
-      data: string
-    }
+      word: string;
+      area: number;
+      startDate: string;
+      endDate: string;
+      data: string;
+    };
     wise: {
-      word: string
-      area: number
-      startDate: string
-      endDate: string
-      data: string
-    }
+      word: string;
+      area: number;
+      startDate: string;
+      endDate: string;
+      data: string;
+    };
     all: {
-      word: string
-      area: number
-      startDate: string
-      endDate: string
-      data: string
-    }
-    uniqid: string
-  }
-  message: string
+      word: string;
+      area: number;
+      startDate: string;
+      endDate: string;
+      data: string;
+    };
+    uniqid: string;
+  };
+  message: string;
 }
 
 interface Index {
-  status: number
+  status: number;
   data: {
     userIndexes: Array<{
-      word: string
-      all: { startDate: string; endDate: string; data: string }
-      pc: { startDate: string; endDate: string; data: string }
-      wise: { startDate: string; endDate: string; data: string }
-      type: string
-    }>
+      word: string;
+      all: { startDate: string; endDate: string; data: string };
+      pc: { startDate: string; endDate: string; data: string };
+      wise: { startDate: string; endDate: string; data: string };
+      type: string;
+    }>;
     generalRatio: Array<{
-      word: string
-      all: { avg: number; yoy: number; qoq: number }
-      pc: { avg: number; yoy: number; qoq: string }
-      wise: { avg: number; yoy: string; qoq: number }
-    }>
-    uniqid: string
-  }
-  message: number
+      word: string;
+      all: { avg: number; yoy: number; qoq: number };
+      pc: { avg: number; yoy: number; qoq: string };
+      wise: { avg: number; yoy: string; qoq: number };
+    }>;
+    uniqid: string;
+  };
+  message: number;
 }
 
 export class BaiduChart {
@@ -76,32 +76,32 @@ export class BaiduChart {
       headers: {
         Cookie: Baidu_Cookie
       }
-    })
+    });
 
-    this.initInterceptors()
+    this.initInterceptors();
   }
 
-  private request: AxiosInstance
+  private request: AxiosInstance;
 
   private async getPTBK(uniqid: string) {
     return await this.request.get<PTBK_Result>(Baidu.PTBK, {
       params: {
         uniqid
       }
-    })
+    });
   }
 
   private initInterceptors() {
     this.request.interceptors.response.use(res => {
       if (res.status !== 200) {
         return Promise.reject({
-          message: '请求失败！',
+          message: "请求失败！",
           data: res.data
-        })
+        });
       }
 
-      return res
-    })
+      return res;
+    });
   }
 
   /**
@@ -111,7 +111,7 @@ export class BaiduChart {
    * @returns
    * @memberof BaiduChart
    */
-  public async search(keyword: string, days = 365): Promise<SearchResult> {
+  public async search(keyword: string): Promise<SearchResult> {
     const {
       data: {
         data: {
@@ -127,20 +127,19 @@ export class BaiduChart {
     } = await this.request.get<Index>(Baidu.Index, {
       params: {
         area: 0,
-        word: keyword,
-        days
+        word: keyword
       }
-    })
+    });
 
     const {
       data: { data: ptbk }
-    } = await this.getPTBK(uniqid)
+    } = await this.getPTBK(uniqid);
 
     return {
       word,
       startDate,
       endDate,
       data: transformDataFromPtbk(ptbk, data)
-    }
+    };
   }
 }
