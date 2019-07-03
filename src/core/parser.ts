@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-21 20:56:35
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-07-03 14:35:35
+ * @Last Modified time: 2019-07-03 15:00:51
  */
 import { zip } from "@saber2pr/fp/lib/list";
 import { zips } from "@saber2pr/fp";
@@ -27,10 +27,11 @@ const RegTime = /([\d]{4}-[\d]{2}-[\d]{2}){1}/;
 
 export function* timeRangeIt(start: string, end: string, step: number) {
   const current = new Date(start);
+  current.setDate(current.getDate() + 2);
   const endTime = new Date(end);
   while (current < endTime) {
+    yield RegTime.exec(current.toJSON())[0].replace(/-/g, "/");
     current.setDate(current.getDate() + step);
-    yield RegTime.exec(new Date(current).toJSON())[0].replace(/-/g, "/");
   }
 }
 
@@ -42,8 +43,9 @@ export const parseData = (data: string) => data.split(",");
 
 export const searchResultsToCsv = (result: SearchResult[]) => {
   const { startDate, endDate } = result[0];
+  console.log(startDate, endDate);
   const ts = timeRange(startDate, endDate, 7);
-  const dss = result.map(res => parseData(res.data));
+  const dss = result.map(res => parseData(res.data).slice(1));
 
   const head = ["时间", ...result.map(res => res.word)].join(",");
   const body = zips(ts, ...dss).map(line => line.join(","));
